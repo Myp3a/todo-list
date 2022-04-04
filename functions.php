@@ -1,30 +1,4 @@
 <?php
-    function make_card($card_id, $title, $pic, $text, $done) {
-        if ($done == 0) {
-            echo "<div class=\"card m-1 shadow\" style=\"width: 18rem;\" data-cardid=\"$card_id\">
-                <img src=\"$pic\" class=\"card-img-top\">
-                <div class=\"card-body\">
-                    <h5 class=\"card-title\">$title</h5>
-                    <p class=\"card-text text-muted\">$text</p>
-                    <a href=\"toggle_card.php?card_id=$card_id&state=1\" class=\"btn btn-danger\">Сделано</a>
-                    <a href=\"del_card.php?card_id=$card_id\" class=\"btn btn-danger\">Удалить</a>
-                </div>
-            </div>";
-        }
-        else {
-            echo "<div class=\"card m-1 shadow opacity-50\" style=\"width: 18rem;\" data-cardid=\"$card_id\">
-                <img src=\"$pic\" class=\"card-img-top opacity-50\">
-                <div class=\"card-body\">
-                    <h5 class=\"card-title text-decoration-line-through\">$title</h5>
-                    <p class=\"card-text text-muted text-decoration-line-through\">$text</p>
-                    <a href=\"toggle_card.php?card_id=$card_id&state=0\" class=\"btn btn-success\">Сделано</a>
-                    <a href=\"del_card.php?card_id=$card_id\" class=\"btn btn-danger\">Удалить</a>
-                </div>
-            </div>";
-        }
-        
-    }
-
     function db_connect() {
         $servername = "localhost";
         $username = "root";
@@ -130,9 +104,7 @@
 
         $cards = $stmt->fetchAll();
 
-        foreach ($cards as $card) {
-            make_card($card['id'], $card["task"],$card["img_path"],$card["descr"],$card["done"]);
-        }
+        return $cards;
     }
 
     function add_card($name,$descr,$img,$uid) {

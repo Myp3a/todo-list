@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<body class="d-flex flex-column h-100">
+    <main class="container-fluid" role="main" id="main">
+        <div id="controls" class="d-flex flex-row">
+            <a href="/add" class="btn btn-primary mb-3 ms-1">Добавить</a>
+        </div>
+        {% if tasks_list %}
+            <div id="cards" class="d-flex flex-row flex-wrap">
+                {% for task in tasks_list %}
+                    <div data-cardid="{{ task.id }}" class="card m-1 shadow {% if task.done %} opacity-50 {% endif %}" style="width: 18rem;" onclick="console.log(this); window.location.href='/task/{{ task.id }}/'">
+                        <img class="card-img-top {% if task.done %} opacity-50 {% endif %}" src="{% get_static_prefix %}{{task.img_path}}">
+                        <div class="card-body">
+                                <h5 class="card-title {% if task.done %} text-decoration-line-through {% endif %}">{{ task.task|truncatechars:50 }}</h5>
+                                <p class="card-text text-muted {% if task.done %} text-decoration-line-through {% endif %}">{{ task.descr|truncatechars:200 }}</p>
+                                {% if task.done %}
+                                    <a class="btn m-1 btn-success" onclick="make_undone(this.parentElement.parentElement,event)">Не сделано</a>
+                                    <a class="btn btn-danger m-1" onclick="remove_card(this.parentElement.parentElement,event)">Удалить</a>
+                                {% else %}
+                                    <a class="btn m-1 btn-danger" onclick="make_done(this.parentElement.parentElement,event)">Сделано</a>
+                                    <a class="btn btn-danger m-1" onclick="remove_card(this.parentElement.parentElement,event)">Удалить</a>
+                                {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>You have no pending tasks</p>
+        {% endif %}
+    </main>
+</body>
+{% endblock %}

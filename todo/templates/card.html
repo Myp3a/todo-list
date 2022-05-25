@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<body class="d-flex flex-column h-100">
+    <main class="container-fluid" role="main" id="main">
+        <div id="controls" class="d-flex flex-row">
+            <a href="/" class="btn btn-danger mb-3 ms-1">Назад</a>
+        </div>
+        <div class="d-flex flex-row">
+            <div data-cardid="{{ task.id }}" class="card m-3" style="width:20%;">
+                <img class="card-img-top" src="{% get_static_prefix %}{{task.img_path}}">
+                <div class="card-body">
+                    {% if task.done %}
+                        <a class="btn m-1 btn-success" onclick="make_undone_detail(this.parentElement.parentElement,event)">Не сделано</a>
+                        <a class="btn btn-danger m-1" onclick="remove_card_detail(this.parentElement.parentElement,event)">Удалить</a>
+                    {% else %}
+                        <a class="btn m-1 btn-danger" onclick="make_done_detail(this.parentElement.parentElement,event)">Сделано</a>
+                        <a class="btn btn-danger m-1" onclick="remove_card_detail(this.parentElement.parentElement,event)">Удалить</a>
+                    {% endif %}                    
+                </div>
+            </div>
+            <div class="card m-3" style="width:75%;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ task.task }}</h5>
+                    <p class="card-text text-muted">{{ task.descr }}</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+{% endblock %}

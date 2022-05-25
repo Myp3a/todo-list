@@ -1,1 +1,3 @@
-/task_img
+/todo/__pycache__
+/todo/migrations
+/todo/static/task_img

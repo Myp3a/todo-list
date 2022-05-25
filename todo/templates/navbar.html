@@ -1,0 +1,35 @@
+{% load static %}
+<nav id="navbar" class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand ps-3 pe-3">
+        <img src="{% static 'cat-no-bg.png' %}" width="64" class="d-inline-block">
+        Aufgabenliste
+    </a>
+    <button class="navbar-toggler m-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav mr-auto">
+            {% if request.path == '/' or request.path == '/add/' or request.path|slice:":5" == '/task' %}
+            <li class="nav-item">
+                <a class="nav-link {% if request.path == '/' %}active{% endif %}" aria-current="page" href="/" id="nav1">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/" id="nav2">Meine Aufgaben</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}" id="nav3">Log out</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/" id="nav1">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if request.path == '/auth/' %}active{% endif %}" href="{% url 'auth' %}" id="nav2">Log in</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if request.path == '/reg/' %}active{% endif %}" href="{% url 'reg' %}" id="nav3">Sign up</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

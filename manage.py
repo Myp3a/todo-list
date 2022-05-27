@@ -3,6 +3,11 @@
 import sys
 from django.conf import settings
 from django.core.management import execute_from_command_line
+from django.core.wsgi import get_wsgi_application
+
+path = '/srv/todo-list'
+if path not in sys.path:
+       sys.path.insert(0, path)
 
 settings.configure(
     DEBUG=True,
@@ -38,8 +43,11 @@ settings.configure(
             ],
         },
     },
-]
+    ],
+    ALLOWED_HOSTS = ["todo.example.me"],
 )
+
+application = get_wsgi_application()
 
 if __name__ == '__main__':
     execute_from_command_line(sys.argv)

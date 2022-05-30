@@ -1,13 +1,17 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
 import sys
+import os
 from django.conf import settings
 from django.core.management import execute_from_command_line
 from django.core.wsgi import get_wsgi_application
 
-path = '/srv/todo-list'
-if path not in sys.path:
-       sys.path.insert(0, path)
+here = os.path.dirname(__file__)
+
+if here not in sys.path:
+       sys.path.insert(0, here)
+
+from todo import config
 
 settings.configure(
     DEBUG=True,
@@ -22,10 +26,11 @@ settings.configure(
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'abyr',
+            'NAME': 'todo',
             'HOST': '127.0.0.1',
             'PORT': '3306',
-            'USER': 'root'
+            'USER': config.USER,
+            'PASSWORD': config.PASS
         }
     },
     STATIC_URL = 'static/',
@@ -44,7 +49,7 @@ settings.configure(
         },
     },
     ],
-    ALLOWED_HOSTS = ["todo.example.me"],
+    ALLOWED_HOSTS = [config.HOSTNAME],
 )
 
 application = get_wsgi_application()

@@ -1,0 +1,4 @@
+HOSTNAME="todo.example.ru"
+USER="todo"
+PASS="todo"
+PATH="/srv/http/todo"

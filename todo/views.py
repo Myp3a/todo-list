@@ -6,6 +6,7 @@ from .forms import NewCardForm
 import hashlib
 from os.path import exists as file_exists
 import os
+from . import config
 
 def verify_user(func):
     def verify_cookie(*args, **kwargs):
@@ -88,7 +89,7 @@ def add(request):
             ext = "." + request.FILES["imgfile"].name.split(".")[-1]
             file = request.FILES["imgfile"].read()
             fhash = hashlib.md5(file).hexdigest()
-            prefix = "todo/static/"
+            prefix = f"{config.PATH}/todo/static/"
             img_path = f"task_img/{fhash}{ext}"
             if file_exists(prefix + f"task_img/{fhash}{ext}"):
                 print("already here")

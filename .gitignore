@@ -1,3 +1,4 @@
 /todo/__pycache__
 /todo/migrations
 /todo/static/task_img
+/todo/config.py

@@ -1,0 +1,7 @@
+HOSTNAME="todo.example.ru"
+DBNAME="todo"
+DBADDR="127.0.0.1"
+DBPORT="3306"
+USER="todo"
+PASS="todo"
+PATH="/srv/http/todo"

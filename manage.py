@@ -26,9 +26,9 @@ settings.configure(
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'todo',
-            'HOST': '127.0.0.1',
-            'PORT': '3306',
+            'NAME': config.DBNAME,
+            'HOST': config.DBADDR,
+            'PORT': config.DBPORT,
             'USER': config.USER,
             'PASSWORD': config.PASS
         }

@@ -9,7 +9,7 @@
         {% if tasks_list %}
             <div id="cards" class="d-flex flex-row flex-wrap">
                 {% for task in tasks_list %}
-                    <div data-cardid="{{ task.id }}" class="card m-1 shadow {% if task.done %} opacity-50 {% endif %}" style="width: 18rem;" onclick="console.log(this); window.location.href='/task/{{ task.id }}'">
+                    <div data-cardid="{{ task.id }}" class="card m-1 shadow {% if task.done %} opacity-50 {% endif %}" style="width: 18rem;" onclick="window.location.href='/task/{{ task.id }}'">
                         <img class="card-img-top {% if task.done %} opacity-50 {% endif %}" src="{% get_static_prefix %}{{task.img_path}}">
                         <div class="card-body">
                                 <h5 class="card-title {% if task.done %} text-decoration-line-through {% endif %}">{{ task.task|truncatechars:50 }}</h5>

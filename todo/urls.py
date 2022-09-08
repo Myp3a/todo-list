@@ -10,5 +10,6 @@ urlpatterns = [
     path('add', views.add, name="add"),
     path('logout', views.logout, name="logout"),
     path('delete', views.delete, name="delete"),
-    path('toggle', views.toggle, name="toggle")
+    path('toggle', views.toggle, name="toggle"),
+    path('schedule', views.schedule, name="schedule")
 ]

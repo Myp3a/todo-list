@@ -7,9 +7,13 @@
             <a href="/" class="btn btn-danger mb-3 ms-1">Назад</a>
         </div>
         <div class="d-flex flex-row">
-            <div data-cardid="{{ task.id }}" class="card m-3" style="width:20%;">
+            <div data-cardid="{{ task.id }}" data-dueto="{{ task.due_to|date:"U" }}" class="card m-3" style="width:20%;">
                 <img class="card-img-top" src="{% get_static_prefix %}{{task.img_path}}">
                 <div class="card-body">
+                    {% if task.due_to %}
+                        <p class="card-text text-muted">Сделать до: {{ task.due_to|date:"d.m.Y" }}</p>
+                    {% endif %}
+                        <a class="btn m-1 btn-secondary" onclick="pick_time(this.parentElement.parentElement,event)">Запланировать</a>
                     {% if task.done %}
                         <a class="btn m-1 btn-success" onclick="make_undone_detail(this.parentElement.parentElement,event)">Не сделано</a>
                         <a class="btn btn-danger m-1" onclick="remove_card_detail(this.parentElement.parentElement,event)">Удалить</a>

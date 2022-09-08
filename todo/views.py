@@ -1,6 +1,6 @@
+import datetime
 from django.shortcuts import redirect, render
-from django.http import HttpResponse
-from requests import request
+from django.http import HttpResponse, HttpResponseBadRequest
 from .models import Task, User
 from .forms import NewCardForm
 import hashlib
@@ -101,7 +101,8 @@ def add(request):
             user=User.objects.filter(hash=user_hash)[0],
             task=form.cleaned_data["name"],
             descr=form.cleaned_data["description"],
-            img_path=img_path)
+            img_path=img_path,
+            due_to=form.cleaned_data["due_to"])
         return redirect("/")
     else:
         return render(request, 'newcard.html', {})
@@ -139,6 +140,25 @@ def toggle(request):
                 task.done = False
             else:
                 task.done = True
+            task.save()
+            return HttpResponse("ok")
+        else:
+            return HttpResponse("fail")
+    else:
+        return redirect("/")
+
+@verify_user
+def schedule(request):
+    user_hash = request.COOKIES.get("user")
+    if request.POST:
+        user = User.objects.filter(hash=user_hash)[0]
+        task = Task.objects.filter(id=request.POST["card_id"],user=user)
+        if task:
+            task = task[0]
+            try:
+                task.due_to = datetime.datetime.fromtimestamp(int(request.POST["time"]))
+            except:
+                return HttpResponseBadRequest("invalid ts")
             task.save()
             return HttpResponse("ok")
         else:

@@ -13,6 +13,7 @@
                         <img class="card-img-top {% if task.done %} opacity-50 {% endif %}" src="{% get_static_prefix %}{{task.img_path}}">
                         <div class="card-body">
                                 <h5 class="card-title {% if task.done %} text-decoration-line-through {% endif %}">{{ task.task|truncatechars:50 }}</h5>
+                                <p id="dueto" data-dueto="{{ task.due_to|date:"U" }}" style="text-align: right;" class="card-text text-muted"{% if task.done or not task.due_to %}hidden{% endif %}>Сделать до: {{ task.due_to|date:"d.m.Y" }}</p>
                                 <p class="card-text text-muted {% if task.done %} text-decoration-line-through {% endif %}">{{ task.descr|truncatechars:200 }}</p>
                                 {% if task.done %}
                                     <a class="btn m-1 btn-success" onclick="make_undone(this.parentElement.parentElement,event)">Не сделано</a>

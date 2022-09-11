@@ -12,6 +12,8 @@ function make_done(card_element,e) {
     img.classList.add("opacity-50")
     but.setAttribute("onclick","make_undone(this.parentElement.parentElement,event)")
     but.textContent = "Не сделано"
+    let dueto = card_element.querySelector("#dueto")
+    dueto.setAttribute("hidden","")
     let csrftoken = $('meta[name="csrf-token"]').attr('content')
     let card_id = card_element.getAttribute("data-cardid")
     $.post({
@@ -37,6 +39,10 @@ function make_undone(card_element,e) {
     img.classList.remove("opacity-50")
     but.setAttribute("onclick","make_done(this.parentElement.parentElement,event)")
     but.textContent = "Сделано"
+    let dueto = card_element.querySelector("#dueto")
+    if (dueto.getAttribute("data-dueto")) {
+        dueto.removeAttribute("hidden")
+    }
     let csrftoken = $('meta[name="csrf-token"]').attr('content')
     let card_id = card_element.getAttribute("data-cardid")
     $.post({
